@@ -1,0 +1,27 @@
+#!/bin/bash
+# The logic to start up your application should be put in this
+# script. The application will work only if it binds to
+# $OPENSHIFT_DIY_IP:8080
+#nohup $OPENSHIFT_REPO_DIR/diy/testrubyserver.rb $OPENSHIFT_DIY_IP $OPENSHIFT_REPO_DIR/diy |& /usr/bin/logshifter -tag diy &
+
+NGINX_DIR=$OPENSHIFT_DATA_DIR
+
+set_nginx_conf () {
+	#sed -e "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT`/" $OPENSHIFT_REPO_DIR/deploy/nginx.conf.template > $NGINX_DIR/conf/nginx.conf
+	sed -i "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT`/" $NGINX_DIR/conf/nginx.conf
+	sed -i "s/`echo '$MY_OPENSHIFT_REPO_DIR'`/`echo ${OPENSHIFT_REPO_DIR//\//\\\/}`/" $NGINX_DIR/conf/nginx.conf
+}
+
+# main
+if [ -f $OPENSHIFT_REPO_DIR/deploy/nginx.conf.template ]; then
+	cp $OPENSHIFT_REPO_DIR/deploy/nginx.conf.template $NGINX_DIR/conf/nginx.conf
+	set_nginx_conf
+else 
+	if [ -f $NGINX_DIR/conf/nginx.conf.bak ]; then
+		cp $NGINX_DIR/conf/nginx.conf.bak $NGINX_DIR/conf/nginx.conf
+	fi
+	set_nginx_conf
+fi
+#nohup $NGINX_DIR/sbin/nginx > $OPENSHIFT_DIY_LOG_DIR/server.log 2>&1 &
+nohup $NGINX_DIR/sbin/nginx |& /usr/bin/logshifter -tag diy &
+

@@ -1,0 +1,32 @@
+#!/bin/bash
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+# The logic to stop your application should be put in this script.
+# if [ -z "$(ps -ef | grep testrubyserver.rb | grep -v grep)" ]
+# then
+#     client_result "Application is already stopped"
+# else
+#     kill `ps -ef | grep testrubyserver.rb | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+# fi
+
+
+#if [ -z "$(ps -ef | grep nginx | grep -v grep)" ]
+#then
+#	client_result "Application is already stopped"
+#else
+#	kill `ps -ef | grep nginx | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+#fi
+
+
+NGINX_DIR=$OPENSHIFT_DATA_DIR
+
+if [ -f $NGINX_DIR/logs/nginx.pid ]; then
+	kill `cat $NGINX_DIR/logs/nginx.pid`
+else
+	if [ -z "$(ps -ef | grep nginx | grep -v grep)" ]; then
+		client_result "Application is already stopped"
+	else
+		kill `ps -ef | grep nginx | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+	fi
+fi
+
