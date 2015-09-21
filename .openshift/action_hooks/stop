@@ -18,7 +18,7 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 #fi
 
 
-NGINX_DIR=$OPENSHIFT_DATA_DIR
+NGINX_DIR=$OPENSHIFT_DATA_DIR/nginx
 
 if [ -f $NGINX_DIR/logs/nginx.pid ]; then
 	kill `cat $NGINX_DIR/logs/nginx.pid`
