@@ -119,7 +119,7 @@
 	<pre>
 	$ mv $OPENSHIFT_DATA_DIR/nginx/conf/nginx.conf $OPENSHIFT_DATA_DIR/nginx/conf/nginx.conf.template
 	</pre>
-	$OPENSHIFT_PORT 也可以直接写成 8080, 因为开头说了，自己的服务器软件绑定在$OPENSHIFT_DIY_IP:8080 上，你到云主机上echo下$OPENSHIFT_DIY_PORT正是8080。
+	$OPENSHIFT_PORT 也可以直接写成 8080, 因为[准备工作](./pre-works.md)中说过了，自己的服务器软件必须且只能绑定在$OPENSHIFT_DIY_IP:8080 上，你到云主机上echo下$OPENSHIFT_DIY_PORT正是8080。
 
 	P.S.: 有人说有个地方需要注意, 但是我没配置，为了资料的完整，这里摘录下来：
 	> 当nginx使用3xx重定向请求时，指向的是appname.rhcloud.com:8080,8080是内部监听端口，从外部请求8080端口将会超时，解决这个问题需要在nginx配置的http部分中添加port_in_redirect off;。
