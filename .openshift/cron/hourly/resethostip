@@ -1,0 +1,38 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+DATA_FILE=$(dirname $0)/hostip.dat
+
+record_ip_port () 
+{
+	echo "$OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT" > $DATA_FILE	
+}
+
+get_ip_port_from_dfile ()
+{
+	ipport=`cat $DATA_FILE`
+	echo $ipport
+}
+
+restart_app ()
+{
+	/usr/bin/gear stop
+	/usr/bin/gear start
+}
+
+# main
+if [ -f $DATA_FILE ]; then
+	ipport_dfile=`get_ip_port_from_dfile`
+	ipport_cur="$OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT"
+	if [ x$ipport_dfile = x$ipport_cur ]; then
+		echo "'ip:port' configuration is correct." 
+	else
+		echo "'ip:port' configuration is incorrect. restart the app..."
+		record_ip_port
+		restart_app
+	fi
+else
+	echo "$DATA_FILE is missing. repair file: $DATA_FILE, and restart the app..."
+	record_ip_port
+	restart_app
+fi

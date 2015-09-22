@@ -6,6 +6,15 @@
 
 NGINX_DIR=$OPENSHIFT_DATA_DIR/nginx
 
+init ()
+{
+	# set cron
+	if [ -f $OPENSHIFT_REPO_DIR/.openshift/cron/hourly/resethostip ];
+	then
+		chmod +x $OPENSHIFT_REPO_DIR/.openshift/cron/hourly/resethostip
+	fi
+}
+
 set_nginx_conf () {
 	#sed -e "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT`/" $OPENSHIFT_REPO_DIR/deploy/nginx.conf.template > $NGINX_DIR/conf/nginx.conf
 	sed -i "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT`/" $NGINX_DIR/conf/nginx.conf
@@ -13,6 +22,9 @@ set_nginx_conf () {
 }
 
 # main
+
+init
+
 if [ -f $OPENSHIFT_REPO_DIR/deploy/nginx.conf.template ]; then
 	cp $OPENSHIFT_REPO_DIR/deploy/nginx.conf.template $NGINX_DIR/conf/nginx.conf
 	set_nginx_conf
