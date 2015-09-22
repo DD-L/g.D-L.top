@@ -87,7 +87,9 @@
 重点在nginx的配置， nginx的配置文件被安放在了 $OPENSHIFT_DATA_DIR/nginx/conf/nginx.conf
 
 1. openshift 提供给你的ip会不定时更新，这个要特别留意。
-2. 根据[openshift 环境变量](https://developers.openshift.com/en/managing-environment-variables.html) 的描述，OpenShift只允许使用$OPENSHIFT_<cart-name>_IP和 $OPENSHIFT_<cart-name>_PORT，在nginx.conf中的http，server和location不能直接使用这些环境变量。
+2. 在nginx.conf中，OpenShift不允许使用$OPENSHIFT_<cart-name>_IP和 $OPENSHIFT_<cart-name>_PORT
+
+	根据[openshift 环境变量](https://developers.openshift.com/en/managing-environment-variables.html) 的描述
 	>"The exact variable names depend on the type of cartridge; the value of <cart-name> is DIY, JBOSSAS, JBOSSEAP, JBOSSEWS, JENKINS, MONGODB, MYSQL, NODEJS, PERL, PHP, POSTGRESQL, PYTHON, or RUBY as appropriate."
 	
 	因为我之前创建的是DIY, 所以这里应该是 $OPENSHIFT_DIY_IP 和 $OPENSHIFT_DIY_PORT
@@ -172,7 +174,7 @@
 	
 >添加定时任务是为了解决 "openshift 提供给你的ip会不定时更新" 的问题，因为它会影响上一步配置的nginx.conf。
 >
->详细的方案，请在 [自动化部署](./automated-deploy.md) 中寻找。
+>详细的方案，请在 [自动化部署](./automated-deploy.md) 方案中寻找。
 >
 >相关的脚本程序：
 >
@@ -180,7 +182,7 @@
 > 2. [https://github.com/DD-L/g.D-L.top/blob/master/.openshift/action_hooks/start](https://github.com/DD-L/g.D-L.top/blob/master/.openshift/action_hooks/start)
 	
 
-#### 配置nginx, 使其能在openshift云主机上成为 google search 的反向代理服务器.
+#### 配置nginx, 使其在openshift云主机上成为 google search 的反向代理服务器.
 
 ssh到你的云主机，修改你的nginx的模板配置文件。
 

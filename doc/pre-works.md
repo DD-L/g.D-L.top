@@ -1,7 +1,9 @@
 
 # 部署前准备工作
 
-如果你已经有一个openshift的二级域名mydomain, 形如 http://xxx-mydomain.rhcloud.com, 并且自己的开发环境中已经安装: rhc, git, ssh client 等工具，可以忽略步骤1~3， 相关中文图文教程可以参考[这篇文章](http://www.freehao123.com/openshift-redhat-ssh/)的“一 登录准备条件”、“二 转换授权Key”、“三 Putty登录” 3个步骤。
+如果你已经有一个openshift的二级域名mydomain, 形如 http://xxx-mydomain.rhcloud.com, 并且自己的开发环境中已经安装: rhc, git, ssh client 等工具，可以忽略步骤1~3.
+
+相关的中文图文教程可以参考[这篇文章](http://www.freehao123.com/openshift-redhat-ssh/)的“一 登录准备条件”、“二 转换授权Key”、“三 Putty登录” 3个步骤。
 
 1. 首先你得有个 openshift 账号
 2. 按照 [openshift 用户文档](https://access.redhat.com/documentation/en-US/OpenShift_Online/2.0/html/User_Guide/index.html), 在自己的PC上安装以下工具:
@@ -15,6 +17,7 @@
 	* 创建二级openshift域名: [Creating a Domain](https://access.redhat.com/documentation/en-US/OpenShift_Online/2.0/html/User_Guide/sect-Domain_Management.html#Creating_a_Domain)
 		
 		形如 'http://Appname-DomainName.rhcloud.com' 的创建：
+
 		`rhc domain create DomainName`，
 
 		这样你后面就可以使用 `rhc app create` 命令来创建app了.
@@ -46,7 +49,7 @@
 
 	大概意思就是，在你仓库代码中，你可以更改app的启动和停止脚本，路径为.openshift/action_hooks/{start, stop}
 
-	还说了两个限制：
+	还说了两条限制：
 	1. 你的服务器软件要绑定在$OPENSHIFT_DIY_IP:8080
 	2. 在你把你修改过后的stop脚本 `git push` 到远程仓库之前，别忘了先关停现在正在运行着的服务器软件。
 

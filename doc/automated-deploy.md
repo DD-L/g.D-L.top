@@ -19,7 +19,7 @@
 
 ####操作步骤
 
-步骤虽然是很多，但每一个步骤都及其简单。
+步骤虽然是很多，但每一个步骤都极其简单。
 
 1. git clone
 	
@@ -40,8 +40,7 @@
 	全部要修改，这里以linux下为例，假定你的域名是 nginx-mydomain.rhcloud.com：
 	
 	<pre>
-	$ cd g.D-L.top
-	$ sed -i "s/g.[dD]-[lL].top/nginx-mydomain.rhcloud.com/g" ./deploy/nginx.conf.template
+	$ sed -i "s/g.[dD]-[lL].top/nginx-mydomain.rhcloud.com/g" ./g.D-L.top/deploy/nginx.conf.template
 	</pre>
 	
 	windows 有更好的可视化字符串替换工具，这里不再过多的介绍。
