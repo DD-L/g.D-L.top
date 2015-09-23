@@ -69,7 +69,7 @@
 	$ cd ./openshift_nginx/
 	$ git status
 	$ # 将出现改动或新增的文件，全部添加到仓库中去
-	$ git add .openshift/action_hooks/ .openshift/cron/* deploy/ www/
+	$ git add .openshift/action_hooks/ .openshift/cron/ deploy/ www/
 	$ # 查看是否还有漏余
 	$ git status
 	$ # 检查没有遗漏后，提交到仓库中去
@@ -132,5 +132,5 @@
 	$ cd $OPENSHIFT_REPO_DIR/deploy/
 	$ make uninstall_nginx 
 	</pre>
-	卸载产生的日志文件在 $OPENSHIFT_REPO_DIR/deploy//uninstall.log 中.
+	卸载产生的日志文件在 $OPENSHIFT_REPO_DIR/deploy/uninstall.log 中.
 	
