@@ -8,7 +8,7 @@
 目前 [g.D-L.top](https://github.com/DD-L/g.D-L.top) 主要两个feature:
 
 1. 普通的 http 服务器
-2. google search 的反向代理服务器
+2. 某G search 的反向代理服务器
 
 ### 部署文档
 
