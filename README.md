@@ -17,13 +17,13 @@
 * [准备工作](./doc/pre-works.md)
 
 * 部署文档
-	* [手动部署](./doc/manual-deploy.md)
+	* [自动化部署](./doc/automated-deploy.md) 方案
 	
+		自动化部署可以配置一个完整的服务器（推荐）
+
+	* [手动部署](./doc/manual-deploy.md) 方案
+
 		手动部署文档只是简单的配置反向代理服务器介绍
-
-	* [自动化部署](./doc/automated-deploy.md)
-
-		自动化部署可以配置一个完整的服务器
 
 
 
