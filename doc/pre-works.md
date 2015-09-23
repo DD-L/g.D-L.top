@@ -28,7 +28,7 @@
 			2. 二级openshift域名: deel
 			3. app名： nginx
 
-4. 创建一个 名字为 nginx 的app, 类型为 diy-0.1
+4. 创建一个 名字为 nginx 的 app, 方案类型为 diy-0.1
 	<pre>
 	$ rhc app create nginx diy-0.1
 	Your application 'nginx' is now available.
