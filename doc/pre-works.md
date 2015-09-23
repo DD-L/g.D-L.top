@@ -24,7 +24,7 @@
 
 		这里以我的配置为例: 
 
-			1. app域名: http://nginx-deel.rhcloud.com/
+			1. app url: http://nginx-deel.rhcloud.com/
 			2. 二级openshift域名: deel
 			3. app名： nginx
 
