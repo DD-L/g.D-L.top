@@ -87,7 +87,7 @@
 重点在nginx的配置， nginx的配置文件被安放在了 $OPENSHIFT_DATA_DIR/nginx/conf/nginx.conf
 
 1. openshift 提供给你的ip会不定时更新，这个要特别留意。
-2. 在nginx.conf中，OpenShift不允许使用$OPENSHIFT_<cart-name>_IP和 $OPENSHIFT_<cart-name>_PORT
+2. 在nginx.conf中，不允许使用$OPENSHIFT_< cart-name >_IP和 $OPENSHIFT_< cart-name >_PORT
 
 	根据[openshift 环境变量](https://developers.openshift.com/en/managing-environment-variables.html) 的描述
 	>"The exact variable names depend on the type of cartridge; the value of <cart-name> is DIY, JBOSSAS, JBOSSEAP, JBOSSEWS, JENKINS, MONGODB, MYSQL, NODEJS, PERL, PHP, POSTGRESQL, PYTHON, or RUBY as appropriate."
