@@ -4,11 +4,11 @@
 
 -------------------
 
-#####在部署前，请确保你已经完成了 [准备工作](./pre-works.md)
+###在部署开始前，请确保你已经完成了 [准备工作](./pre-works.md)
 
 1. 无特别说明，手动部署文档仍然以我的配置为例：
 
-	1. app域名: http://nginx-deel.rhcloud.com/
+	1. app url: http://nginx-deel.rhcloud.com/
 	2. 二级openshift域名: deel
 	3. app名： nginx
 	3. 本地仓库文件夹： openshift_nginx
