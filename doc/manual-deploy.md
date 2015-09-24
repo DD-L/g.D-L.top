@@ -28,7 +28,7 @@
 	$ mkdir -p $OPENSHIFT_TMP_DIR/nginx_built
 	$ cd $OPENSHIFT_TMP_DIR/nginx_built
 	</pre>
-	1. 下载pcre库, nginx的编译依赖这个库，url重写, sub_filter等功能会用这个正则表达式库。
+	1. 下载pcre库, nginx的编译依赖这个库，url重写等功能会用这个正则表达式库。
 		<pre>
 		目前最新版本是 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.20.tar.bz2
 
