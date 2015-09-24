@@ -42,7 +42,7 @@
 	2. zlib库，这个好像不必下载，openshift 云主机系统有，为了资料的完整性这里列出来:
 		(后面编译我会用这个版本的zlib，而不是使用系统中的zlib库)
 		<pre>
-		$ cd $OPENSHIFT_TMP_DIR
+		$ cd $OPENSHIFT_TMP_DIR/nginx_built
 		$ wget http://zlib.net/zlib-1.2.8.tar.gz
 		$ tar xvf zlib-1.2.8.tar.gz
 		</pre>
@@ -96,7 +96,7 @@
 		
 	网上有说是 OPENSHIFT_INTERNAL_IP 和 OPENSHIFT_INTERNAL_PORT，这大概是老版本的openshift的环境变量，这个早就改了：https://developers.openshift.com/en/managing-environment-variables.html
 
-	既然openshift不允许使用在配置文件中使用$OPENSHIFT_DIY_IP和$OPENSHIFT_DIY_PORT，那么只能采取曲线救国，配置起来需要点技巧：
+	既然不允许在配置文件中使用$OPENSHIFT_DIY_IP和$OPENSHIFT_DIY_PORT，那么只能采取曲线救国策略，配置起来需要点技巧：
 
 3. 制作nginx.conf模板
 	<pre>
@@ -132,12 +132,12 @@
 	</pre>
 	1. start 脚本的编写
 		<pre>$ vim start</pre>
-		<pre>
+		<pre><code>
 		#!/bin/bash
 		NGINX_DIR=$OPENSHIFT_DATA_DIR/nginx
 		sed -e "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT`/" $NGINX_DIR/conf/nginx.conf.template > $NGINX_DIR/conf/nginx.conf
 		nohup $NGINX_DIR/sbin/nginx |& /usr/bin/logshifter -tag diy &
-		</pre>
+		</code></pre>
 		这样再openshift app启动时候，配置文件中的ip和端口号就是真实的数字了。
 	2. stop 脚本的编写
 		<pre>$ vim stop</pre>
