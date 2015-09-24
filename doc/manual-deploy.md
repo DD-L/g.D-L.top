@@ -140,13 +140,6 @@
 		</code></pre>
 		这样再openshift app启动时候，配置文件中的ip和端口号就是真实的数字了。
 		
-		>可恶，Github上的Markdown解释器把上面代码中的反引号" \` " 给转义了，为了能在Github上正确显示上面代码，这里再编写一个Github Markdown版的代码, 以便代码能正确显示:
-		<pre><code>
-		#!/bin/bash
-		NGINX_DIR=$OPENSHIFT_DATA_DIR/nginx
-		sed -e "s/\`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'\`/\`echo $OPENSHIFT_DIY_IP:$OPENSHIFT_DIY_PORT\`/" $NGINX_DIR/conf/nginx.conf.template > $NGINX_DIR/conf/nginx.conf
-		nohup $NGINX_DIR/sbin/nginx |& /usr/bin/logshifter -tag diy &
-		</code></pre>
 	2. stop 脚本的编写
 		<pre>$ vim stop</pre>
 		参考 [https://github.com/DD-L/g.D-L.top/blob/master/.openshift/action_hooks/stop](https://github.com/DD-L/g.D-L.top/blob/master/.openshift/action_hooks/stop)
