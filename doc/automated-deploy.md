@@ -101,7 +101,7 @@
 	
 	deploy 的日志在 $OPENSHIFT_REPO_DIR/deploy/deploy.log 中
 	
-	如果你想查看deploy的进度，可再开一个ssh终端，执行
+	直到 deploy 工作结束前，`make deploy` 会一直阻塞，如果你想查看deploy的进度，可再开一个ssh终端，执行
 	<pre>
 	$ tail -f $OPENSHIFT_REPO_DIR/deploy/deploy.log
 	</pre>
@@ -110,7 +110,7 @@
 
 	如果是其它情况，请参考日志 $OPENSHIFT_REPO_DIR/deploy/deploy.log, 并把相关问题及时反馈给我。
 
-7. 重启nginx
+7. 重启你的网站
 
 	这里要用 openshift 上的工具重启你的网站
 	
@@ -121,9 +121,9 @@
 	$ /usr/bin/gear start
 	</pre>
 	
-	浏览器访问你的网站，以验证服务器是否正常工作。
+	浏览器访问你的网站，以验证nginx服务器是否正常工作。
 
-8. 卸载刚刚部署的服务器
+8. 卸载刚刚部署的nginx服务器
 	
 	如果你反悔了，想卸载刚刚部署的服务器。可以执行自动化卸载工具
 	
@@ -133,4 +133,3 @@
 	$ make uninstall_nginx 
 	</pre>
 	卸载产生的日志文件在 $OPENSHIFT_REPO_DIR/deploy/uninstall.log 中.
-	
