@@ -87,6 +87,24 @@ http {
             sub_filter //www.gstatic.com /proxydeel/www-gstatic-com ;
             sub_filter www.gstatic.com   g.d-l.top/proxydeel/www-gstatic-com ;
 
+            # images
+            #sub_filter https://encrypted-tbn0.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn0-gstatic-com ;
+            #sub_filter https://encrypted-tbn1.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn1-gstatic-com ;
+            #sub_filter https://encrypted-tbn2.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn2-gstatic-com ;
+            #sub_filter https://encrypted-tbn3.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn3-gstatic-com ;
+            #sub_filter encrypted-tbn0.gstatic.com g.d-l.top/proxydeel/encrypted-tbn0-gstatic-com ;
+            #sub_filter encrypted-tbn1.gstatic.com g.d-l.top/proxydeel/encrypted-tbn1-gstatic-com ;
+            #sub_filter encrypted-tbn2.gstatic.com g.d-l.top/proxydeel/encrypted-tbn2-gstatic-com ;
+            #sub_filter encrypted-tbn3.gstatic.com g.d-l.top/proxydeel/encrypted-tbn3-gstatic-com ;
+            
+            #sub_filter https://apis.google.com //g.d-l.top/proxydeel/apis-google-com ;
+            #sub_filter apis.google.com g.d-l.top/proxydeel/apis-google-com ;
+
+
+
+            # 'sub_filter' does not support 'regular expressions',
+            # Refer to 'subs_filter', if you want to use 'regular expressions': 
+            # https://github.com/yaoweibin/ngx_http_substitutions_filter_module
         }
         
         # proxy ssl.gstatic.com
@@ -121,6 +139,43 @@ http {
             sub_filter //www.gstatic.com /proxydeel/www-gstatic-com ;
             sub_filter www.gstatic.com   g.d-l.top/proxydeel/www-gstatic-com ;
         }
+#        # proxy https://encrypted-tbn[0-3].gstatic.com
+#        location ^~ /proxydeel/encrypted-tbn0-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn0.gstatic.com /proxydeel/encrypted-tbn0-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn0.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn0.gstatic.com;
+#		}
+#        location ^~ /proxydeel/encrypted-tbn1-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn1.gstatic.com /proxydeel/encrypted-tbn1-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn1.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn1.gstatic.com;
+#		}
+#        location ^~ /proxydeel/encrypted-tbn2-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn2.gstatic.com /proxydeel/encrypted-tbn2-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn2.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn2.gstatic.com;
+#		}
+#        location ^~ /proxydeel/encrypted-tbn3-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn3.gstatic.com /proxydeel/encrypted-tbn3-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn3.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn3.gstatic.com;
+#		}
+#        # proxy apis.google.com
+#        location ^~ /proxydeel/apis-google-com/ {
+#            proxy_redirect https://apis.google.com /proxydeel/apis-google-com/;
+#            proxy_set_header Host "apis.google.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://apis.google.com;
+#        }
 
         #location ^~ /xjs/_/js/ {
         #   proxy_set_header Accept-Encoding "";
