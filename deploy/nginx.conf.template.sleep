@@ -1,0 +1,270 @@
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+	
+    upstream google {
+        server 74.125.239.112:443 max_fails=3;
+        server 74.125.239.113:443 max_fails=3;
+        server 74.125.239.114:443 max_fails=3;
+        server 74.125.239.115:443 max_fails=3;
+        server 74.125.239.116:443 max_fails=3;
+	}
+
+    server {
+        listen       $OPENSHIFT_IP:$OPENSHIFT_PORT;
+        server_name  g.d-l.top;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        #location / {
+        #    root   html;
+        #    index  index.html index.htm;
+        #}
+        
+        rewrite ^/robots.txt$ /deelroot/robots.txt break;
+        rewrite ^.*$ /deelroot/sleep.html break;
+        rewrite ^/$ /deelroot/sleep.html break;
+        #location = / {
+        #   return http://g.d-l.top/deelroot/
+        #}
+
+#        # proxy www.google.com 
+#        location / {
+#            #proxy_cache one;
+#            #proxy_cache_valid 200 302 1h;
+#            #proxy_cache_valid 404 1m;
+#            proxy_cookie_domain google.com g.d-l.top;
+#            proxy_redirect https://www.google.com/ /;
+#            proxy_redirect http://www.google.com/ /;
+#            #proxy_redirect //www.google.com/textinputassistant/ //g.d-l.top/textinputassistant/;
+#            proxy_pass https://google;
+#            proxy_set_header Host "www.google.com";
+#            proxy_set_header Accept-Encoding "";
+#            proxy_set_header User-Agent $http_user_agent;
+#            proxy_set_header Accept-Language "zh-CN";
+#            proxy_set_header Cookie "PREF=ID=047808f19f6de346:U=0f62f33dd8549d11:FF=2:LD=zh-CN:NW=1:TM=1442566362:LM=1332142444:GM=1:SG=2:S=rE0SyJh2w1IQ-Maw";
+#
+#            sub_filter_once off;
+#            #sub_filter_types text/html text/javascript;
+#            #sub_filter_types *;
+#            sub_filter https://www.google.com http://g.d-l.top ;
+#            sub_filter http://www.google.com  http://g.d-l.top ;
+#            sub_filter //www.google.com  //g.d-l.top ;
+#            sub_filter www.google.com g.d-l.top ;
+#
+#            sub_filter //ssl.gstatic.com /proxydeel/ssl-gstatic-com ;
+#            sub_filter //www.gstatic.com /proxydeel/www-gstatic-com ;
+#            sub_filter www.gstatic.com   g.d-l.top/proxydeel/www-gstatic-com ;
+#
+#            # images
+#            #sub_filter https://encrypted-tbn0.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn0-gstatic-com ;
+#            #sub_filter https://encrypted-tbn1.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn1-gstatic-com ;
+#            #sub_filter https://encrypted-tbn2.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn2-gstatic-com ;
+#            #sub_filter https://encrypted-tbn3.gstatic.com //g.d-l.top/proxydeel/encrypted-tbn3-gstatic-com ;
+#            #sub_filter encrypted-tbn0.gstatic.com g.d-l.top/proxydeel/encrypted-tbn0-gstatic-com ;
+#            #sub_filter encrypted-tbn1.gstatic.com g.d-l.top/proxydeel/encrypted-tbn1-gstatic-com ;
+#            #sub_filter encrypted-tbn2.gstatic.com g.d-l.top/proxydeel/encrypted-tbn2-gstatic-com ;
+#            #sub_filter encrypted-tbn3.gstatic.com g.d-l.top/proxydeel/encrypted-tbn3-gstatic-com ;
+#            
+#            #sub_filter https://apis.google.com //g.d-l.top/proxydeel/apis-google-com ;
+#            #sub_filter apis.google.com g.d-l.top/proxydeel/apis-google-com ;
+#
+#
+#
+#            # 'sub_filter' does not support 'regular expressions',
+#            # Refer to 'subs_filter', if you want to use 'regular expressions': 
+#            # https://github.com/yaoweibin/ngx_http_substitutions_filter_module
+#        }
+        
+        # proxy ssl.gstatic.com
+        location ^~ /proxydeel/ssl-gstatic-com/ {
+            proxy_redirect http://ssl.gstatic.com/ /proxydeel/ssl-gstatic-com/;
+            proxy_set_header Host "ssl.gstatic.com";
+            proxy_set_header Accept-Encoding "";
+            proxy_pass http://ssl.gstatic.com/;
+
+            sub_filter_once off;
+            sub_filter https://www.google.com http://g.d-l.top ;
+            sub_filter http://www.google.com  http://g.d-l.top ;
+            sub_filter www.google.com g.d-l.top ;
+
+            sub_filter //ssl.gstatic.com /proxydeel/ssl-gstatic-com ;
+            sub_filter //www.gstatic.com /proxydeel/www-gstatic-com ;
+            sub_filter www.gstatic.com   g.d-l.top/proxydeel/www-gstatic-com ;
+        }
+        # proxy www.gstatic.com
+        location ^~ /proxydeel/www-gstatic-com/ {
+            proxy_redirect http://www.gstatic.com/ /proxydeel/www-gstatic-com/;
+            proxy_set_header Host "www.gstatic.com";
+            proxy_set_header Accept-Encoding "";
+            proxy_pass http://www.gstatic.com/;
+
+            sub_filter_once off;
+            sub_filter https://www.google.com http://g.d-l.top ;
+            sub_filter http://www.google.com  http://g.d-l.top ;
+            sub_filter www.google.com g.d-l.top ;
+
+            sub_filter //ssl.gstatic.com /proxydeel/ssl-gstatic-com ;
+            sub_filter //www.gstatic.com /proxydeel/www-gstatic-com ;
+            sub_filter www.gstatic.com   g.d-l.top/proxydeel/www-gstatic-com ;
+        }
+#        # proxy https://encrypted-tbn[0-3].gstatic.com
+#        location ^~ /proxydeel/encrypted-tbn0-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn0.gstatic.com /proxydeel/encrypted-tbn0-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn0.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn0.gstatic.com;
+#		}
+#        location ^~ /proxydeel/encrypted-tbn1-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn1.gstatic.com /proxydeel/encrypted-tbn1-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn1.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn1.gstatic.com;
+#		}
+#        location ^~ /proxydeel/encrypted-tbn2-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn2.gstatic.com /proxydeel/encrypted-tbn2-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn2.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn2.gstatic.com;
+#		}
+#        location ^~ /proxydeel/encrypted-tbn3-gstatic-com/ {
+#            proxy_redirect https://encrypted-tbn3.gstatic.com /proxydeel/encrypted-tbn3-gstatic-com/;
+#            proxy_set_header Host "encrypted-tbn3.gstatic.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://encrypted-tbn3.gstatic.com;
+#		}
+#        # proxy apis.google.com
+#        location ^~ /proxydeel/apis-google-com/ {
+#            proxy_redirect https://apis.google.com /proxydeel/apis-google-com/;
+#            proxy_set_header Host "apis.google.com";
+#            proxy_set_header User-Agent $http_user_agent;
+#            #proxy_set_header Accept-Encoding "";
+#            proxy_pass https://apis.google.com;
+#        }
+
+        #location ^~ /xjs/_/js/ {
+        #   proxy_set_header Accept-Encoding "";
+        #   proxy_pass http://www.google.com;
+        #   sub_filter_once off;
+        #   sub_filter https://www.google.com http://g.d-l.top ;
+        #   sub_filter http://www.google.com  http://g.d-l.top ;
+        #   sub_filter www.google.com g.d-l.top ;
+
+        #   sub_filter //ssl.gstatic.com /proxydeel/ssl-gstatic-com ;
+        #   sub_filter //www.gstatic.com /proxydeel/www-gstatic-com ;
+        #   sub_filter www.gstatic.com   g.d-l.top/proxydeel/www-gstatic-com ;
+        #}
+
+
+        # deelroot
+        location ^~ /deelroot/ {
+            root $MY_OPENSHIFT_REPO_DIR/www;
+            index index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+}

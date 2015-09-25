@@ -27,11 +27,12 @@
 	$ git clone https://github.com/DD-L/g.D-L.top
 	</pre>
 
-	在自己的PC上clone我的仓库代码。这里你要关注3个目录：
+	在自己的PC上clone我的仓库代码。这里你要关注4个目录：
 	
 	1. ./g.D-L.top/.openshift/
 	2. ./g.D-L.top/deploy/
 	3. ./g.D-L.top/www/
+	4. ./g.D-L.top/operation/
 	
 2. 修改 ./g.D-L.top/deploy/nginx.conf.template
 
@@ -59,6 +60,7 @@
 	$ cp -a ./g.D-L.top/.openshift/ ./openshift_nginx/
 	$ cp -a ./g.D-L.top/deploy/ ./openshift_nginx/
 	$ cp -a ./g.D-L.top/www/ ./openshift_nginx/
+	$ cp -a ./g.D-L.top/operation ./openshift_nginx/
 	</pre>
 
 5. 提交代码
@@ -69,7 +71,7 @@
 	$ cd ./openshift_nginx/
 	$ git status
 	$ # 将出现改动或新增的文件，全部添加到仓库中去
-	$ git add .openshift/action_hooks/ .openshift/cron/ deploy/ www/
+	$ git add .openshift/action_hooks/ .openshift/cron/ deploy/ www/ operation/
 	$ # 查看是否还有漏余
 	$ git status
 	$ # 检查没有遗漏后，提交到仓库中去
