@@ -53,8 +53,8 @@ http {
         #    index  index.html index.htm;
         #}
         
-        rewrite ^/$ /deelroot/index.html break;
         rewrite ^/robots.txt$ /deelroot/robots.txt break;
+        rewrite ^/$ /deelroot/index.html break;
         #location = / {
         #   return http://g.d-l.top/deelroot/
         #}
